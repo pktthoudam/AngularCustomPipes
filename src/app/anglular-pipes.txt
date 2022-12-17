@@ -1,0 +1,108 @@
+Pipes are simple functions to use in template expressions to accept an input value and return a transformed value.
+
+Agualr pipes syntax:
+
+    Expression | pipeOperator[:pipeArguments]
+
+    where 
+    'Expression' is the expression, which you want to tranform
+    '|' is the pipe character
+    'pipeOperator' is the name of pipe
+    'pipeArguments' argument to the pipe
+
+Passing arguments to pipes
+
+    -> The arguments are added to the pipes using a colon (:) sign followed by the value of the arguments.
+
+    -> If there are multiple arguments separate each of them with the colon (:)
+
+Chaining Pipes
+        Pipes can be chained together to make use of multiple pipes in one expression. For example in the following code, the toDate is passed to the Date Pipe. The output of the Date pipe is then passed to the uppercase pipe.
+
+SlicePipe
+        Creates a new List or String containing a subset (slice) of the string or array. This Pipe uses the JavaScript API Array.prototype.slice() and String.prototype.slice().
+
+        Syntax
+            array_or_string_expression | slice:start[:end]
+
+        'array_or_string_expression' is the string to slice
+
+        'slice' is the name of the pipe.
+
+        'start' is the start position/index from where the slicing will start
+
+        'end' is the ending index/position in the array/string
+
+DecimalPipe / NumberPipe/Percent 
+        The Decimal Pipe is used to Format a number as Text. This pipe will format the number according to locale rules.
+
+        Syntax
+            number_expression | number[:digitInfo]
+
+        Where
+
+            'number_expression' is the number you want to format
+
+            'number' is the name of the pipe
+
+            'digitInfo' is a string which has the following format
+
+            {minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}
+
+        Where
+
+            'minIntegerDigits' is the minimum number of integer digits to use. Defaults to 1.
+
+            'minFractionDigits' is the minimum number of digits after fraction. Defaults to 0.
+
+           ' maxFractionDigits' is the maximum number of digits after fraction. Defaults to 3.
+
+CurrencyPipe
+        Formats a number as currency using locale rules.
+        syntax
+            number_expression | currency[:currencyCode[:symbolDisplay[:digitInfo]]]
+
+        Where
+
+        'number_expression' currency to format a number as currency.
+
+        'Currency' is the name of the pipe
+
+        'currencyCode' is the ISO 4217 currency code, such as USD for the US dollar and EUR for the euro.
+
+        'symbolDisplay' is a boolean indicating whether to use the currency symbol or code. Use true to display symbol and false to use code
+
+        'digitInfo' is similar to the one used in decimal pipe
+
+
+Pipe tranform:
+        An interface that is implemented by pipes in order to perform a transformation. Angular invokes the transform method with the value of a binding as the first argument, and any parameters as the second argument in list form.
+
+    create custom pipe:
+            => create a class as a pipe.
+                - apply the @pipe decorator
+                - use UpperCamelCase (genaral convention of class name) for the pipe class name 
+                - use camelCase for name
+                - don't use hyphens
+
+            => ng generate pipe    
+
+            => using the PiprTransform interface
+                - Implement the PipeTransform interface in your custom pipe class to perform the transformation.
+
+syntax:
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'test'
+})
+export class TestPipe implements PipeTransform {
+
+  transform(value: unknown, ...args: unknown[]): unknown {
+    return null;
+  }
+
+}
+
+
